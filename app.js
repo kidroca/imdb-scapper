@@ -1,13 +1,13 @@
 /* globals console require setTimeout Promise */
 'use strict';
 
-const httpRequester = require("./utils/http-requester");
-const htmlParser = require("./utils/html-parser");
-const queuesFactory = require("./data-structures/queue");
-const modelsFactory = require("./models");
-const constants = require("./config/constants");
+const httpRequester = require('./utils/http-requester');
+const htmlParser = require('./utils/html-parser');
+const queuesFactory = require('./data-structures/queue');
+const modelsFactory = require('./models');
+const constants = require('./config/constants');
 
-require("./config/mongoose")(constants.connectionString);
+require('./config/mongoose')(constants.connectionString);
 
 let urlsQueue = queuesFactory.getQueue();
 
@@ -30,7 +30,7 @@ function getMoviesFromUrl(url) {
     console.log(`Working with ${url}`);
     httpRequester.get(url)
         .then((result) => {
-            const selector = ".col-title span[title] a";
+            const selector = '.col-title span[title] a';
             const html = result.body;
             return htmlParser.parseSimpleMovie(selector, html);
         })
