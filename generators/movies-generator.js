@@ -6,7 +6,9 @@ const htmlParser = require('../utils/html-parser');
 const modelsFactory = require('../models');
 const timeoutUtils = require('../utils/timeout');
 
-let urlsQueue = [];
+require('colors');
+
+let urlQueue;
 let waitDuration = 1000;
 
 module.exports = {
@@ -15,12 +17,12 @@ module.exports = {
 };
 
 /**
- * @param {Queue<String>} params.urlsQueue
+ * @param {Queue<String>} params.urlQueue
  * @param {int} [params.waitDuration] - time to wait between requests in milliseconds
  * default is 1000
  */
 function config(params) {
-    urlsQueue = params.urlsQueue || urlsQueue;
+    urlQueue = params.urlQueue || urlQueue;
     waitDuration = params.waitDuration || waitDuration;
 }
 
@@ -33,11 +35,11 @@ function generateMovies() {
 }
 
 function nextOrDie() {
-    if (urlsQueue.isEmpty()) {
+    if (urlQueue.isEmpty()) {
         return Promise.resolve();
     }
 
-    return getMoviesFromUrl(urlsQueue.pop());
+    return getMoviesFromUrl(urlQueue.pop());
 }
 
 /**
@@ -46,7 +48,7 @@ function nextOrDie() {
  * @returns {Promise}
  */
 function getMoviesFromUrl(url) {
-    console.log(`Working with ${url.underline.blue}`);
+    console.log(`Working with ${url.italic.green}`);
 
     return httpRequester.get(url)
                  .then(parseToMoviesDataObjects)
