@@ -31,7 +31,7 @@ function createUrlsQueue() {
 
     genres.forEach(genre => {
         for (let i = 0; i < pagesCount; i += 1) {
-            let url = createUrl(genre);
+            let url = createUrl(genre, i);
 
             urlsQueue.push(url);
         }
@@ -40,13 +40,15 @@ function createUrlsQueue() {
     return urlsQueue;
 }
 
-function createUrl(genre) {
-    let url = `http://www.imdb.com/search/title?genres=${genre}
-            &title_type=feature
-            &0sort=moviemeter,asc
-            &page=${i+1}
-            &view=simple
-            &ref_=adv_nxt`;
+function createUrl(genre, page) {
+    let url = [
+        `http://www.imdb.com/search/title?genres=${genre}`,
+        `&title_type=feature`,
+        `&0sort=moviemeter,asc`,
+        `&page=${page + 1}`,
+        `&view=simple`,
+        `&ref_=adv_nxt`
+    ].join('');
 
     return url;
 }
