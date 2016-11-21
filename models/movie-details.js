@@ -1,7 +1,8 @@
 'use strict';
 
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Actor = require('./actor').schema;
 
 let MovieDetailsSchema = new Schema({
     forMovieId: {
@@ -35,27 +36,8 @@ let MovieDetailsSchema = new Schema({
     },
 
     actors: {
-        type: [{
-            role: {
-                type: String,
-                required: true
-            },
-
-            name: {
-                type: String,
-                required: true
-            },
-
-            imdbId: {
-                type: String,
-                required: true
-            },
-
-            imageUrl: {
-                type: String,
-                required: true
-            }
-        }]
+        type: [Actor],
+        required: true
     }
 });
 
