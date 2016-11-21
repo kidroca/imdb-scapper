@@ -1,3 +1,5 @@
+'use strict';
+
 const constants = require('../config/constants');
 const urlGenerator = require('./url-generator');
 const moviesGenerator = require('./movies-generator');

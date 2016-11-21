@@ -1,3 +1,5 @@
+'use strict';
+
 const queuesFactory = require('../data-structures/queue');
 
 let genres = [];

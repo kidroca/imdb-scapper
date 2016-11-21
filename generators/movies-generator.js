@@ -1,3 +1,5 @@
+'use strict';
+
 const urlGenerator = require('./url-generator');
 const httpRequester = require('../utils/http-requester');
 const htmlParser = require('../utils/html-parser');
