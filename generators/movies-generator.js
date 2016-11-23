@@ -1,6 +1,5 @@
 'use strict';
 
-const urlGenerator = require('./url-generator');
 const httpRequester = require('../utils/http-requester');
 const htmlParser = require('../utils/html-parser');
 const modelsFactory = require('../models');
@@ -20,6 +19,7 @@ module.exports = {
  * @param {Queue<String>} params.urlQueue
  * @param {int} [params.waitDuration] - time to wait between requests in milliseconds
  * default is 1000
+ * @returns {void}
  */
 function config(params) {
     urlQueue = params.urlQueue || urlQueue;
@@ -31,7 +31,7 @@ function generateMovies() {
     return nextOrDie()
         .then(() => timeoutUtils.wait(waitDuration))
         .then(generateMovies)
-        .catch((err) => console.dir(err, { colors: true }))
+        .catch((err) => console.dir(err, { colors: true }));
 }
 
 function nextOrDie() {
@@ -60,8 +60,9 @@ function parseToMoviesDataObjects(result) {
     const selector = '.col-title span[title] a';
     const html = result.body;
 
-    let movies = htmlParser.parseSimpleMovie(selector, html);
-    return movies;
+    let simpleMovies = htmlParser.parseSimpleMovie(selector, html);
+
+    return simpleMovies;
 }
 
 function mapToDbModels(movies) {
